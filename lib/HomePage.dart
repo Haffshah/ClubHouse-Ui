@@ -1,6 +1,10 @@
 import 'package:clubhouse/Config/Colors.dart';
+import 'package:clubhouse/Widgets/BottomEffect.dart';
+import 'package:clubhouse/Widgets/GridIconleft.dart';
+import 'package:clubhouse/Widgets/MessageIconRight.dart';
 import 'package:clubhouse/Widgets/Profile_Image.dart';
 import 'package:clubhouse/Widgets/RoomCard.dart';
+import 'package:clubhouse/Widgets/StartRoom.dart';
 import 'package:clubhouse/Widgets/UpcomingRooms.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +12,39 @@ import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  Widget bottomSheetElement(
+    String imagePath,
+    String text,
+    int index,
+    int selected,
+  ) {
+    return Ink(
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+      decoration: BoxDecoration(
+        color: (selected == index) ? ColorsPalate.grey : Colors.transparent,
+        border: (selected == index)
+            ? Border.all(color: ColorsPalate.bordergrey)
+            : Border.all(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: ProfileImage(
+                size: 60.0,
+                imagePath: imagePath,
+              ),
+            ),
+          ),
+          Text(text),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -375,60 +412,153 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: RoomCardWidget(
-                  GroupName: "Young, Wild & Free",
+                  GroupName: "Hot on the mic",
                   Image1: "images/user6.jpg",
                   Image2: "images/user1.png",
-                  RoomNameCap: "True Crime💀🎃",
-                  RoomNameSmall: "Serial Killers, Abduction & DARK WEB",
+                  RoomNameCap: "🚨",
+                  RoomNameSmall: "Afternoon Delight Comedy Show! 😂🚀🍑",
                 ),
               ),
             ],
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: 100.0,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Theme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
-                  Theme.of(context).scaffoldBackgroundColor
-                ],
-              )),
-            ),
-          ),
-          Positioned(
-            bottom: 40.0,
-            child: Container(
-              padding: EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                color: ColorsPalate.green,
-                borderRadius: BorderRadius.circular(25.0)
-              ),
-              child: const Text.rich(
-                TextSpan(
-                  children: [
-                    WidgetSpan(
-                        child: Icon(
-                      CupertinoIcons.add,
-                      size: 21.0,
-                      color: Colors.white,
-                    )),
-                    TextSpan(
-                      text: " Start a Room",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w500),
+          Container(alignment: Alignment.bottomCenter, child: BottomEffect()),
+          Container(
+            padding: EdgeInsets.only(bottom: 20.0),
+            alignment: Alignment.bottomCenter,
+            child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15),),
                     ),
-                  ],
-                ),
-              ),
-            ),
+                    context: context,
+                    builder: (context) {
+                      return Container(
+
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 5,
+                              width: 40.0,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Colors.grey),
+                            ),
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                alignment: Alignment.centerRight,
+                                padding: EdgeInsets.symmetric(vertical: 10.0),
+                                child: Text(
+                                  '+ Add a Topic',
+                                  style: TextStyle(
+                                      color: ColorsPalate.green,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: Wrap(children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      bottomSheetElement(
+                                          "images/open.png", "Open", 1, 1),
+                                      bottomSheetElement("images/social.png",
+                                          "Social", 2, 0),
+                                      bottomSheetElement("images/closed.png",
+                                          "Closed", 3, 0),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      bottomSheetElement(
+                                          "images/open.png", "Open", 4, 0),
+                                      bottomSheetElement("images/social.png",
+                                          "Social", 5, 0),
+                                      bottomSheetElement("images/closed.png",
+                                          "Closed", 6, 0),
+                                    ],
+                                  ),
+                                ), Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      bottomSheetElement(
+                                          "images/open.png", "Open", 4, 0),
+                                      bottomSheetElement("images/social.png",
+                                          "Social", 5, 0),
+                                      bottomSheetElement("images/closed.png",
+                                          "Closed", 6, 0),
+                                    ],
+                                  ),
+                                ),
+                              ]),
+                            ),
+                            Divider(
+                              thickness: 1,
+                              indent: 20,
+                              endIndent: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 12.0,
+                              ),
+                              child: Text(
+                                "Start a room open to everyone",
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                    color: ColorsPalate.green,
+                                    borderRadius: BorderRadius.circular(25.0)),
+                                child: Text(
+                                  "🎉 Let\'s go",
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: StartRoom()),
+          ),
+          Container(
+            alignment: Alignment.bottomLeft,
+            padding: EdgeInsets.only(bottom: 20.0, left: 25.0),
+            child: GridIconleft(),
+          ),
+          Container(
+            alignment: Alignment.bottomRight,
+            padding: EdgeInsets.only(bottom: 20.0, right: 25.0),
+            child: MessageIconRight(),
           ),
         ],
       ),

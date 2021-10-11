@@ -43,10 +43,10 @@ class RoomCardWidget extends StatelessWidget {
                   size: 14,
                 ),
                 Spacer(),
-                InkWell(
+                 InkWell(
                   onTap: () {},
-                  child: Icon(
-                    Icons.more_horiz_outlined,
+                  child: const Icon(
+                    Icons.more_horiz,
                     color: Colors.grey,
                   ),
                 )
@@ -59,9 +59,7 @@ class RoomCardWidget extends StatelessWidget {
                     fontSize: 15,
                   ),
             ),
-            SizedBox(
-              height: 12.0,
-            ),
+
             Row(
               children: [
                 Expanded(
