@@ -1,20 +1,116 @@
 import 'package:clubhouse/Config/Colors.dart';
+import 'package:clubhouse/ModelData/BottomSheetData.dart';
 import 'package:clubhouse/Widgets/BottomEffect.dart';
+import 'package:clubhouse/Widgets/GreyContainerinBottomsheet.dart';
 import 'package:clubhouse/Widgets/GridIconleft.dart';
+import 'package:clubhouse/Widgets/LetsGoButtton.dart';
 import 'package:clubhouse/Widgets/MessageIconRight.dart';
 import 'package:clubhouse/Widgets/Profile_Image.dart';
 import 'package:clubhouse/Widgets/RoomCard.dart';
 import 'package:clubhouse/Widgets/StartRoom.dart';
+import 'package:clubhouse/Widgets/TextFIeldDialogBox.dart';
 import 'package:clubhouse/Widgets/UpcomingRooms.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool indicator = false;
+  List <BottomSheetData> myList = courseDataList();
+
+  Future ShowBottmSheet() async {
+    return Future.delayed(const Duration(milliseconds: 650), () {
+      showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
+            child: Column(
+              children: [
+                GeryBoxContainerBottomSheet(),
+                GestureDetector(
+                  onTap: () {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return TextFieldDialogBox();
+                      },
+                    );
+                  },
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      '+ Add a Topic',
+                      style: TextStyle(
+                          color: ColorsPalate.green,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: Container(
+                    height: 200,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: myList.length,
+                              padding: EdgeInsets.all(0),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return  bottomSheetElement(myList[index].imagePath,);
+                              }),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Divider(
+                  thickness: 1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 12.0,
+                  ),
+                  child: Text(
+                    "Start a room open to everyone",
+                    style:
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                LetsGoButton(),
+              ],
+            ),
+          );
+        },
+      );
+      setState(() {
+        indicator = false;
+      });
+    });
+  }
 
   Widget bottomSheetElement(
     String imagePath,
+
     String text,
     int index,
     int selected,
@@ -427,210 +523,25 @@ class HomePage extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
                 onTap: () {
-                  showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 5,
-                              width: 40.0,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Colors.grey),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showCupertinoDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return CupertinoAlertDialog(
-                                        content: Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: CupertinoTextField(
-                                            maxLength: 5,
-                                            maxLines: 6,
-                                          ),
-                                        ),
-                                        title: Column(
-                                          children: [
-                                            Text(
-                                              'Add a Title',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              'e.g Raising wolves - good idea ?',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400),
-                                            )
-                                          ],
-                                        ),
-                                        actions: [
-                                          CupertinoDialogAction(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                'Cancel',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              )),
-                                          CupertinoDialogAction(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                'Set Title',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              )),
-                                        ],
-                                      );
-                                    });
-                              },
-                              child: Container(
-                                alignment: Alignment.centerRight,
-                                padding: EdgeInsets.symmetric(vertical: 10.0),
-                                child: Text(
-                                  '+ Add a Topic',
-                                  style: TextStyle(
-                                      color: ColorsPalate.green,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12.0),
-                              child: Container(
-                                height:200,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            bottomSheetElement(
-                                                "images/open.png", "Open", 1, 0),
-                                            bottomSheetElement(
-                                                "images/social.png",
-                                                "Social",
-                                                2,
-                                                0),
-                                            bottomSheetElement(
-                                                "images/closed.png",
-                                                "Closed",
-                                                3,
-                                                0),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            bottomSheetElement(
-                                                "images/open.png", "Open", 4, 0),
-                                            bottomSheetElement(
-                                                "images/social.png",
-                                                "Social",
-                                                5,
-                                                0),
-                                            bottomSheetElement(
-                                                "images/closed.png",
-                                                "Closed",
-                                                6,
-                                                0),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            bottomSheetElement(
-                                                "images/open.png", "Open", 4, 0),
-                                            bottomSheetElement(
-                                                "images/social.png",
-                                                "Social",
-                                                5,
-                                                0),
-                                            bottomSheetElement(
-                                                "images/closed.png",
-                                                "Closed",
-                                                6,
-                                                0),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Divider(
-                              thickness: 1,
-                              indent: 20,
-                              endIndent: 20,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 12.0,
-                              ),
-                              child: Text(
-                                "Start a room open to everyone",
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(12.0),
-                                decoration: BoxDecoration(
-                                    color: ColorsPalate.green,
-                                    borderRadius: BorderRadius.circular(25.0)),
-                                child: Text(
-                                  "🎉 Let\'s go",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
+                  setState(() {
+                    indicator = !indicator;
+                    ShowBottmSheet();
+                  });
                 },
-                child: StartRoom()),
+                child: indicator
+                    ? Container(
+                        width: 180.0,
+                        padding: EdgeInsets.all(12.0),
+                        decoration: BoxDecoration(
+                            color: ColorsPalate.green,
+                            borderRadius: BorderRadius.circular(25.0)),
+                        child: CupertinoActivityIndicator(
+                          radius: 12,
+                          animating: true,
+                        ),
+                      )
+                    : Container(
+                        alignment: Alignment.bottomCenter, child: StartRoom())),
           ),
           Container(
             alignment: Alignment.bottomLeft,
@@ -647,3 +558,32 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+// Padding(
+//                             padding: const EdgeInsets.all(2.0),
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                               children: [
+//                                 bottomSheetElement(
+//                                     "images/open.png", "Open", 1, 0),
+//                                 bottomSheetElement(
+//                                     "images/social.png", "Social", 2, 0),
+//                                 bottomSheetElement(
+//                                     "images/closed.png", "Closed", 3, 0),
+//                               ],
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding: const EdgeInsets.all(2.0),
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                               children: [
+//                                 bottomSheetElement(
+//                                     "images/open.png", "Open", 4, 0),
+//                                 bottomSheetElement(
+//                                     "images/social.png", "Social", 5, 0),
+//                                 bottomSheetElement(
+//                                     "images/closed.png", "Closed", 6, 0),
+//                               ],
+//                             ),
+//                           ),
