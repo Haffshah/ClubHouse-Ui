@@ -429,12 +429,14 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15),),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
                     ),
                     context: context,
                     builder: (context) {
                       return Container(
-
                         padding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
                         child: Column(
@@ -447,7 +449,61 @@ class HomePage extends StatelessWidget {
                                   color: Colors.grey),
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return CupertinoAlertDialog(
+                                        content: Padding(
+                                          padding: const EdgeInsets.all(4),
+                                          child: CupertinoTextField(
+                                            maxLength: 5,
+                                            maxLines: 6,
+                                          ),
+                                        ),
+                                        title: Column(
+                                          children: [
+                                            Text(
+                                              'Add a Title',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              'e.g Raising wolves - good idea ?',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400),
+                                            )
+                                          ],
+                                        ),
+                                        actions: [
+                                          CupertinoDialogAction(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'Cancel',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )),
+                                          CupertinoDialogAction(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'Set Title',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              )),
+                                        ],
+                                      );
+                                    });
+                              },
                               child: Container(
                                 alignment: Alignment.centerRight,
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -461,52 +517,78 @@ class HomePage extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 12.0),
-                              child: Wrap(children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                              child: Container(
+                                height:200,
+                                child: SingleChildScrollView(
+                                  child: Column(
                                     children: [
-                                      bottomSheetElement(
-                                          "images/open.png", "Open", 1, 1),
-                                      bottomSheetElement("images/social.png",
-                                          "Social", 2, 0),
-                                      bottomSheetElement("images/closed.png",
-                                          "Closed", 3, 0),
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            bottomSheetElement(
+                                                "images/open.png", "Open", 1, 0),
+                                            bottomSheetElement(
+                                                "images/social.png",
+                                                "Social",
+                                                2,
+                                                0),
+                                            bottomSheetElement(
+                                                "images/closed.png",
+                                                "Closed",
+                                                3,
+                                                0),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            bottomSheetElement(
+                                                "images/open.png", "Open", 4, 0),
+                                            bottomSheetElement(
+                                                "images/social.png",
+                                                "Social",
+                                                5,
+                                                0),
+                                            bottomSheetElement(
+                                                "images/closed.png",
+                                                "Closed",
+                                                6,
+                                                0),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            bottomSheetElement(
+                                                "images/open.png", "Open", 4, 0),
+                                            bottomSheetElement(
+                                                "images/social.png",
+                                                "Social",
+                                                5,
+                                                0),
+                                            bottomSheetElement(
+                                                "images/closed.png",
+                                                "Closed",
+                                                6,
+                                                0),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      bottomSheetElement(
-                                          "images/open.png", "Open", 4, 0),
-                                      bottomSheetElement("images/social.png",
-                                          "Social", 5, 0),
-                                      bottomSheetElement("images/closed.png",
-                                          "Closed", 6, 0),
-                                    ],
-                                  ),
-                                ), Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      bottomSheetElement(
-                                          "images/open.png", "Open", 4, 0),
-                                      bottomSheetElement("images/social.png",
-                                          "Social", 5, 0),
-                                      bottomSheetElement("images/closed.png",
-                                          "Closed", 6, 0),
-                                    ],
-                                  ),
-                                ),
-                              ]),
+                              ),
                             ),
                             Divider(
                               thickness: 1,
