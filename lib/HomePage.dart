@@ -1,6 +1,7 @@
 import 'package:clubhouse/Config/Colors.dart';
-import 'package:clubhouse/ModelData/BottomSheetData.dart';
+
 import 'package:clubhouse/Widgets/BottomEffect.dart';
+import 'package:clubhouse/Widgets/BottoomSheetWidget.dart';
 import 'package:clubhouse/Widgets/GreyContainerinBottomsheet.dart';
 import 'package:clubhouse/Widgets/GridIconleft.dart';
 import 'package:clubhouse/Widgets/LetsGoButtton.dart';
@@ -23,7 +24,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool indicator = false;
-  List <BottomSheetData> myList = courseDataList();
 
   Future ShowBottmSheet() async {
     return Future.delayed(const Duration(milliseconds: 650), () {
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
             child: Column(
               children: [
-                GeryBoxContainerBottomSheet(),
+                GreyBoxContainerBottomSheet(),
                 GestureDetector(
                   onTap: () {
                     showCupertinoDialog(
@@ -68,14 +68,7 @@ class _HomePageState extends State<HomePage> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: myList.length,
-                              padding: EdgeInsets.all(0),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return  bottomSheetElement(myList[index].imagePath,);
-                              }),
+                          BottomSheetWidget(),
                         ],
                       ),
                     ),
@@ -106,40 +99,6 @@ class _HomePageState extends State<HomePage> {
         indicator = false;
       });
     });
-  }
-
-  Widget bottomSheetElement(
-    String imagePath,
-
-    String text,
-    int index,
-    int selected,
-  ) {
-    return Ink(
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-      decoration: BoxDecoration(
-        color: (selected == index) ? ColorsPalate.grey : Colors.transparent,
-        border: (selected == index)
-            ? Border.all(color: ColorsPalate.bordergrey)
-            : Border.all(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: ProfileImage(
-                size: 60.0,
-                imagePath: imagePath,
-              ),
-            ),
-          ),
-          Text(text),
-        ],
-      ),
-    );
   }
 
   @override
@@ -202,307 +161,22 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Startup Club '.toUpperCase(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .overline!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12,
-                                      letterSpacing: 1.0),
-                            ),
-                            Icon(
-                              Icons.home_filled,
-                              color: Colors.green,
-                              size: 14,
-                            ),
-                            Spacer(),
-                            InkWell(
-                              onTap: () {},
-                              child: Icon(
-                                Icons.more_horiz_outlined,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
-                        Text(
-                          '🤓 MasterClass:'.toUpperCase() +
-                              ' Write a Tech Resume That Pays',
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                        ),
-                        SizedBox(
-                          height: 12.0,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 100.0,
-                                width: 100.0,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      left: 28.0,
-                                      top: 20.0,
-                                      child: ProfileImage(
-                                        imagePath: 'images/user3.jpg',
-                                        size: 48.0,
-                                      ),
-                                    ),
-                                    ProfileImage(
-                                      imagePath: 'images/user2.jpg',
-                                      size: 48.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'Kate Pozeznik  💬',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 16,
-                                        ),
-                                  ),
-                                  Text(
-                                    'Nikita Gupta  💬',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 16,
-                                        ),
-                                  ),
-                                  Text(
-                                    'Mike TomaSello 💬',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 16,
-                                        ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '93',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Icon(
-                                        CupertinoIcons.person_alt,
-                                        size: 18,
-                                        color: Colors.grey,
-                                      ),
-                                      Text(
-                                        '/',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Text(
-                                        '7',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Icon(
-                                        CupertinoIcons.chat_bubble_text_fill,
-                                        color: Colors.grey,
-                                        size: 18.0,
-                                      ),
-                                      SizedBox(
-                                        width: 100,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                child: RoomCardWidget(
+                  GroupName: 'Startup Club  ',
+                  Image1: "images/user3.jpg",
+                  Image2: "images/user2.jpg",
+                  RoomNameCap: '🤓 MasterClass:',
+                  RoomNameSmall: ' Write a Tech Resume That Pays',
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Young, wild & free '.toUpperCase(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .overline!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12,
-                                      letterSpacing: 1.0),
-                            ),
-                            Icon(
-                              Icons.home_filled,
-                              color: Colors.green,
-                              size: 14,
-                            ),
-                            Spacer(),
-                            InkWell(
-                              onTap: () {},
-                              child: Icon(
-                                Icons.more_horiz_outlined,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
-                        Text(
-                          'True Crime💀🎃'.toUpperCase() +
-                              ' Serial Killers, Abduction & DARK WEB',
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                        ),
-                        SizedBox(
-                          height: 12.0,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 100.0,
-                                width: 100.0,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      left: 28.0,
-                                      top: 20.0,
-                                      child: ProfileImage(
-                                        imagePath: 'images/user5.jpg',
-                                        size: 48.0,
-                                      ),
-                                    ),
-                                    ProfileImage(
-                                      imagePath: 'images/user4.jpg',
-                                      size: 48.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'Dhruvin busa  💬',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 16,
-                                        ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    'Marzia Dossal  💬',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 16,
-                                        ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    'Akashita Nikki Pravin 💬',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          fontSize: 16,
-                                        ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '1k',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Icon(
-                                        CupertinoIcons.person_alt,
-                                        size: 18,
-                                        color: Colors.grey,
-                                      ),
-                                      Text(
-                                        '/',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Text(
-                                        '65',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      Icon(
-                                        CupertinoIcons.chat_bubble_text_fill,
-                                        color: Colors.grey,
-                                        size: 18.0,
-                                      ),
-                                      SizedBox(
-                                        width: 100,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                child: RoomCardWidget(
+                  GroupName: 'Young, wild & free ',
+                  Image1: "images/user4.jpg",
+                  Image2: "images/user5.jpg",
+                  RoomNameCap: "True Crime💀🎃",
+                  RoomNameSmall: " Serial Killers, Abduction & DARK WEB",
                 ),
               ),
               Padding(
@@ -522,26 +196,29 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(bottom: 20.0),
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    indicator = !indicator;
-                    ShowBottmSheet();
-                  });
-                },
-                child: indicator
-                    ? Container(
-                        width: 180.0,
-                        padding: EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                            color: ColorsPalate.green,
-                            borderRadius: BorderRadius.circular(25.0)),
-                        child: CupertinoActivityIndicator(
-                          radius: 12,
-                          animating: true,
-                        ),
-                      )
-                    : Container(
-                        alignment: Alignment.bottomCenter, child: StartRoom())),
+              onTap: () {
+                setState(() {
+                  indicator = !indicator;
+                  ShowBottmSheet();
+                });
+              },
+              child: indicator
+                  ? Container(
+                      width: 180.0,
+                      padding: EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                          color: ColorsPalate.green,
+                          borderRadius: BorderRadius.circular(25.0)),
+                      child: CupertinoActivityIndicator(
+                        radius: 12,
+                        animating: true,
+                      ),
+                    )
+                  : Container(
+                      alignment: Alignment.bottomCenter,
+                      child: StartRoom(),
+                    ),
+            ),
           ),
           Container(
             alignment: Alignment.bottomLeft,
@@ -558,32 +235,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// Padding(
-//                             padding: const EdgeInsets.all(2.0),
-//                             child: Row(
-//                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                               children: [
-//                                 bottomSheetElement(
-//                                     "images/open.png", "Open", 1, 0),
-//                                 bottomSheetElement(
-//                                     "images/social.png", "Social", 2, 0),
-//                                 bottomSheetElement(
-//                                     "images/closed.png", "Closed", 3, 0),
-//                               ],
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding: const EdgeInsets.all(2.0),
-//                             child: Row(
-//                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                               children: [
-//                                 bottomSheetElement(
-//                                     "images/open.png", "Open", 4, 0),
-//                                 bottomSheetElement(
-//                                     "images/social.png", "Social", 5, 0),
-//                                 bottomSheetElement(
-//                                     "images/closed.png", "Closed", 6, 0),
-//                               ],
-//                             ),
-//                           ),

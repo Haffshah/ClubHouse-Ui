@@ -63,6 +63,7 @@ class RoomCardWidget extends StatelessWidget {
             Row(
               children: [
                 Expanded(
+                  flex: 1,
                   child: Container(
                     height: 100.0,
                     width: 100.0,
@@ -70,7 +71,7 @@ class RoomCardWidget extends StatelessWidget {
                       children: [
                         Positioned(
                           left: 28.0,
-                          top: 20.0,
+                          top: 26.0,
                           child: ProfileImage(
                             imagePath: Image1,
                             size: 48.0,
@@ -153,7 +154,7 @@ class RoomCardWidget extends StatelessWidget {
                             size: 18.0,
                           ),
                           SizedBox(
-                            width: 100,
+                            width: 80.0,
                           ),
                         ],
                       )

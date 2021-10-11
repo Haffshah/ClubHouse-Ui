@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class GeryBoxContainerBottomSheet extends StatelessWidget {
-  const GeryBoxContainerBottomSheet({
+class GreyBoxContainerBottomSheet extends StatelessWidget {
+  const GreyBoxContainerBottomSheet({
     Key? key,
   }) : super(key: key);
 
