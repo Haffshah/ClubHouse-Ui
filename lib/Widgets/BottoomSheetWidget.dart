@@ -18,7 +18,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   Widget build(BuildContext context) {
     return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, mainAxisSpacing: 4),
+            crossAxisCount: 3, mainAxisSpacing: 5),
         physics: NeverScrollableScrollPhysics(),
         itemCount: myList.length,
         shrinkWrap: true,

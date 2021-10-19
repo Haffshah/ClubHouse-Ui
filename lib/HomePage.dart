@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool indicator = false;
 
-  Future ShowBottmSheet() async {
+  Future showBottomSheet() async {
     return Future.delayed(const Duration(milliseconds: 650), () {
       showModalBottomSheet(
         shape: RoundedRectangleBorder(
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 setState(() {
                   indicator = !indicator;
-                  ShowBottmSheet();
+                  showBottomSheet();
                 });
               },
               child: indicator
